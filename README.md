@@ -65,32 +65,44 @@
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Script loaded successfully");
             
-            document.getElementById("newsletter-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                let emailInput = document.getElementById("newsletter-email").value;
-                let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                console.log("Newsletter form submitted with email:", emailInput);
-                
-                if (!emailPattern.test(emailInput)) {
-                    alert("Please enter a valid email address.");
-                    console.log("Invalid email format");
-                    return;
-                }
-                alert("Thank you for subscribing!");
-                console.log("Subscription successful");
-            });
+            const newsletterForm = document.getElementById("newsletter-form");
+            const contactForm = document.getElementById("contact-form");
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    let emailInput = document.getElementById("newsletter-email").value.trim();
+                    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    console.log("Newsletter form submitted with email:", emailInput);
+                    
+                    if (!emailPattern.test(emailInput)) {
+                        alert("Please enter a valid email address.");
+                        console.error("Invalid email format");
+                        return;
+                    }
+                    alert("Thank you for subscribing!");
+                    console.log("Subscription successful");
+                });
+            }
             
-            document.getElementById("contact-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                let nameInput = document.getElementById("contact-name").value;
-                let emailInput = document.getElementById("contact-email").value;
-                let messageInput = document.getElementById("contact-message").value;
-                
-                console.log("Contact form submitted with name:", nameInput, "email:", emailInput, "message:", messageInput);
-                
-                alert("Your message has been sent. We will get back to you soon.");
-            });
+            if (contactForm) {
+                contactForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    let nameInput = document.getElementById("contact-name").value.trim();
+                    let emailInput = document.getElementById("contact-email").value.trim();
+                    let messageInput = document.getElementById("contact-message").value.trim();
+                    
+                    if (!nameInput || !emailInput || !messageInput) {
+                        alert("Please fill in all fields.");
+                        console.error("Form submission failed: Empty fields detected");
+                        return;
+                    }
+                    
+                    console.log("Contact form submitted with name:", nameInput, "email:", emailInput, "message:", messageInput);
+                    alert("Your message has been sent. We will get back to you soon.");
+                });
+            }
         });
         
         function donate() {
@@ -101,4 +113,3 @@
     </script>
 </body>
 </html>
-# healthconnectsolar
